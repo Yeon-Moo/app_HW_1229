@@ -10,7 +10,7 @@ class MyService : Service() {
     private var jobco: Job?=null;
     private lateinit var co:CoroutineScope;
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        //解析 Intent 取得字串訊息
+
         intent?.extras?.let {
             channel = it.getString("channel", "")
         }
@@ -31,7 +31,7 @@ class MyService : Service() {
 
     jobco=co.launch {
         try {
-            delay(3000) //延遲三秒
+            delay(3000)
             broadcast(
                 when(channel) {
                     "music" -> "即將播放本月 TOP10 音樂"
@@ -48,7 +48,7 @@ class MyService : Service() {
         return START_STICKY
     }
     override fun onBind(intent: Intent): IBinder? = null
-    //發送廣播
+
     private fun broadcast(msg: String) =
         sendBroadcast(Intent(channel).putExtra("msg", msg))
 }

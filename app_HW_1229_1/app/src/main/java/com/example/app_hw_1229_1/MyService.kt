@@ -10,13 +10,13 @@ import kotlinx.coroutines.launch
 class MyService : Service() {
     override fun onCreate() {
         super.onCreate()
-         //使用 Thread 執行耗時任務
+
         GlobalScope.launch {
             try {
-                delay(3000) //延遲三秒
-                //宣告 Intent，從 MyService 啟動 SecActivity
+                delay(3000)
+
                 val intent = Intent(this@MyService, SecActivity::class.java)
-                //加入 Flag 表示要產生一個新的 Activity
+
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
             } catch (e: InterruptedException) {
@@ -28,7 +28,7 @@ class MyService : Service() {
     }
     override fun onStartCommand(intent: Intent,
                                 flags: Int, startid: Int): Int {
-        return START_NOT_STICKY //Service 終止後不再重啟
+        return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent): IBinder? = null
